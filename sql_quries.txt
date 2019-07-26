@@ -1,0 +1,30 @@
+# Exercise 1:
+Album.objects.filter(artist__name='Queen')
+
+# Exercise 2:
+Track.objects.filter(media_type__name='Protected MPEG-4 video file').count()
+
+# Exercise 3:
+Genre.objects.get(name='Hip Hop/Rap')
+
+# Exercise 4:
+Track.objects.filter(genre__name='Hip Hop/Rap').count()
+
+# Exercise 5:
+Track.objects.aggregate(Sum('milliseconds'))
+
+# Exercise 6:
+Track.objects.filter(media_type__name='MPEG audio file').aggregate(Max('unit_price'))
+
+# Exercise 7:
+Track.objects.filter(unit_price=(Track.objects.filter(media_type__name='MPEG audio file').aggregate(Max('unit_price'))['unit_price__max']))[0].name
+
+# Exercise 8:
+Artist.objects.order_by('created_at')[0].created_at
+Artist.objects.order_by('created_at')[1].created_at
+
+# Exercise 9:
+Track.objects.filter(unit_price=(Track.objects.filter(genre__name='Electronica/Dance').aggregate(Min('unit_price'))['unit_price__min']))[0]
+
+# Exercise 10:
+Track.objects.filter(media_type__name='MPEG audio file').filter(genre__name='Electronica/Dance')
