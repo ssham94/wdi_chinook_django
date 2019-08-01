@@ -28,3 +28,31 @@ Track.objects.filter(unit_price=(Track.objects.filter(genre__name='Electronica/D
 
 # Exercise 10:
 Track.objects.filter(media_type__name='MPEG audio file').filter(genre__name='Electronica/Dance')
+
+
+
+
+# Model relationships part 3, July 31st:
+
+# Exercise 1:
+Album.objects.get(title = 'Vinicius De Moraes').tracks.all()
+
+# Exercise 2:
+Artist.objects.get(name = 'Philip Glass Ensemble').album.all()
+
+# Exercise 3:
+Playlist.objects.get(name = 'Brazilian Music').tracks.all()
+
+# Exercise 4:
+Genre.objects.get(name = 'Jazz').tracks.all()
+
+# Exercise 5:
+Track.objects.get(name = 'My Time After Awhile').genre
+
+# Exercise 6:
+Track.objects.get(name = 'My Time After Awhile').media_type
+
+# Exercise 7:
+Track.objects.get(name = 'My Time After Awhile').album
+
+# Model relatipnships part 4, July 31st:

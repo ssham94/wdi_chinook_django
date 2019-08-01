@@ -11,22 +11,29 @@ class Album(models.Model):
     title = models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name= 'album')
+    genres = models.ManyToManyField('Genre', through= 'Track')
+    media_types = models.ManyToManyField('MediaType', through = 'Track')
 
 class MediaType(models.Model):
     name = models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    genres = models.ManyToManyField('Genre', through= 'Track')
+    albums = models.ManyToManyField(Album, through= 'Track')
 
 class Genre(models.Model):
     name = models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    media_types = models.ManyToManyField(MediaType, through= 'Track')
+    albums = models.ManyToManyField(Album, through='Track')
+
 
 class Track(models.Model):
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    media_type = models.ForeignKey(MediaType, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name= 'tracks')
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name= 'tracks')
+    media_type = models.ForeignKey(MediaType, on_delete=models.CASCADE, related_name= 'tracks')
     name = models.CharField(max_length=255, null=False)
     composer = models.CharField(max_length=255, null=True)
     milliseconds = models.IntegerField(null=False)
